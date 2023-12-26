@@ -1,14 +1,14 @@
-import { ApolloServer } from '@apollo/server';
-import { startStandaloneServer } from '@apollo/server/standalone';
-import { DataSource } from './datasources.js';
+import { ApolloServer } from "@apollo/server";
+import { startStandaloneServer } from "@apollo/server/standalone";
+import { DataSource } from "./datasources.js";
 // Here we import the automatically generated Book type, so we can use it in our
 // context typing.
-import resolvers from './resolvers/index.js';
-import { readFileSync } from 'fs';
+import resolvers from "./resolvers/index.js";
+import { readFileSync } from "fs";
 
 // Note: this only works locally because it relies on `npm` routing
 // from the root directory of the project.
-const typeDefs = readFileSync('./schema.graphql', { encoding: 'utf-8' });
+const typeDefs = readFileSync("./schema.graphql", { encoding: "utf-8" });
 
 export interface MyContext {
   dataSources: {
@@ -25,7 +25,6 @@ const server = new ApolloServer<MyContext>({
 
 const myDataSource = new DataSource();
 const { url } = await startStandaloneServer(server, {
-  
   context: async () => {
     return {
       dataSources: {
